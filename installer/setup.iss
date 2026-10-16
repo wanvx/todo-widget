@@ -34,7 +34,10 @@ DefaultGroupName={#AppName}
 AllowNoIcons=yes
 
 OutputDir=out
-OutputBaseFilename={#AppName}-Setup-{#AppVersion}
+; 输出文件名刻意用 ASCII：中文名在下载链接里会被百分号编码，
+; 部分客户端还会把它解成乱码甚至丢字（实测 GitHub 资产名被截成了 "-Setup-1.1.0.exe"）。
+; 装好之后的显示名仍然是中文（见 AppName、快捷方式、卸载项）。
+OutputBaseFilename=TodoWidget-Setup-{#AppVersion}
 SetupIconFile=..\assets\logo.ico
 UninstallDisplayIcon={app}\{#AppExeName}
 UninstallDisplayName={#AppName}

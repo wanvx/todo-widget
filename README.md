@@ -113,7 +113,7 @@ window-local 物理 `x=[19..28] y=[20..29]`。
 
 ## 打包分发给别人
 
-安装包在 `installer\out\待办清单-Setup-1.1.0.exe`（**47 MB，单文件**）。
+安装包在 `installer\out\TodoWidget-Setup-1.1.0.exe`（**47 MB，单文件**）。
 
 把它发给朋友，对方 **双击 → 选安装位置 → 安装**，全程简体中文，**不需要管理员权限、不弹 UAC**。
 
