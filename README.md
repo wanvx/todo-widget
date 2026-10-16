@@ -115,6 +115,28 @@ window-local 物理 `x=[19..28] y=[20..29]`。
 
 安装包在 `installer\out\TodoWidget-Setup-1.1.0.exe`（**47 MB，单文件**）。
 
+### 已经发到 GitHub
+
+| | |
+|---|---|
+| 源码仓库 | https://github.com/wanvx/todo-widget |
+| 下载页 | https://github.com/wanvx/todo-widget/releases/latest |
+
+下载页有两个文件：
+
+| 文件 | 大小 | 说明 |
+|---|---|---|
+| `TodoWidget-Setup-1.1.0.exe` | 47 MB | 安装包，可自定义安装位置 |
+| `TodoWidget-1.1.0-portable.exe` | 146 MB | 免安装绿色版，放哪都能跑 |
+
+> **为什么仓库里没有 exe？** 单文件发布后的 `待办清单.exe` 有 **146 MB**，超过 GitHub 单文件
+> 100 MB 的硬限制，推不上去；而且往 git 历史里塞几十 MB 的二进制会让每次 clone 都变慢。
+> 所以二进制走 **Releases**——这也是 GitHub 官方的二进制分发方式。
+>
+> **为什么下载文件名是英文？** 中文名在下载链接里会被百分号编码，部分客户端还会解成乱码：
+> 实测 GitHub 资产名被截成了 `-Setup-1.1.0.exe`（「待办清单」整个丢了）。所以分发文件名用 ASCII，
+> 但**装好之后的程序名、快捷方式、卸载项仍然是中文「待办清单」**。
+
 把它发给朋友，对方 **双击 → 选安装位置 → 安装**，全程简体中文，**不需要管理员权限、不弹 UAC**。
 
 | | |
