@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <!-- WinForms is referenced only for the tray icon (System.Windows.Forms.NotifyIcon).
+         It ships inside the Windows Desktop SDK, so no NuGet package is required. -->
+    <UseWindowsForms>true</UseWindowsForms>
+    <AssemblyName>TodoWidget</AssemblyName>
+    <RootNamespace>TodoWidget</RootNamespace>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>..\..\assets\logo.ico</ApplicationIcon>
+    <Version>1.1.0</Version>
+    <Product>待办清单</Product>
+    <AssemblyTitle>待办清单</AssemblyTitle>
+    <Company>wanvx</Company>
+    <Copyright>© 2026 wanvx</Copyright>
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+    <EnableDefaultApplicationDefinition>true</EnableDefaultApplicationDefinition>
+  </PropertyGroup>
+
+  <!-- UseWindowsForms=true makes the SDK inject `global using System.Windows.Forms;`
+       and `global using System.Drawing;`. Those collide with System.Windows types
+       (Application, MessageBox, MouseEventArgs…) in a WPF app, so they are removed
+       here and imported explicitly, and only where the tray icon needs them. -->
+  <ItemGroup>
+    <Using Remove="System.Windows.Forms" />
+    <Using Remove="System.Drawing" />
+  </ItemGroup>
+
+  <!-- A widget that idles on the desktop for weeks should not keep a background
+       GC thread pool or framework resource strings resident. -->
+  <PropertyGroup>
+    <ConcurrentGarbageCollection>false</ConcurrentGarbageCollection>
+    <UseSystemResourceKeys>true</UseSystemResourceKeys>
+    <!-- WFO0003 tells WinForms apps to move DPI settings out of the manifest, but
+         this is a WPF app: the manifest is the correct place, so the advisory is
+         suppressed rather than followed. -->
+    <NoWarn>$(NoWarn);WFO0003</NoWarn>
+  </PropertyGroup>
+
+</Project>

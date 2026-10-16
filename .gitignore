@@ -1,0 +1,24 @@
+# 构建产物
+src/**/bin/
+src/**/obj/
+dist/
+installer/out/
+
+# 运行时数据文件（程序会在 exe 旁边生成）
+data.json
+settings.json
+*.corrupt-*
+
+# 诊断日志
+*.log
+
+# 整屏截图：包含桌面上的其它窗口，属于隐私内容，不进公开仓库。
+# 仓库里只保留 README 引用的 *-widget.png 裁剪图。
+artifacts/*-full.png
+
+# DSH 本地技能（第三方，装在每台机器上，不属于本仓库）
+.dsh/
+
+# 系统垃圾
+Thumbs.db
+desktop.ini
