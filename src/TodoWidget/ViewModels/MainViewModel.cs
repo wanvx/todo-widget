@@ -167,11 +167,11 @@ public sealed class MainViewModel : ObservableObject
     public string DataFilePath => AppPaths.DataFile;
 
     /// <summary>
-    /// 作者主页 / Bug 反馈地址。**要改链接只改这一行**——弹出框里的灰色提示文字
+    /// 项目主页 / Bug 反馈地址。**要改链接只改这一行**——弹出框里的灰色提示文字
     /// 由 <see cref="AuthorHomepageLabel"/> 自动推导，不会两边不一致。
-    /// 以后建好仓库想接到 Issues，把它换成 https://github.com/wanvx/&lt;仓库&gt;/issues 即可。
+    /// 想直接落到反馈区，把它换成 https://github.com/wanvx/todo-widget/issues 即可。
     /// </summary>
-    public const string AuthorHomepageUrl = "https://github.com/wanvx";
+    public const string AuthorHomepageUrl = "https://github.com/wanvx/todo-widget";
 
     /// <summary>弹出框里显示的地址（去掉协议前缀，短一点更好看）。</summary>
     public string AuthorHomepageLabel => AuthorHomepageUrl.Replace("https://", string.Empty).TrimEnd('/');

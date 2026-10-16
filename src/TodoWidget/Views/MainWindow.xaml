@@ -361,7 +361,7 @@
                         </Border.Effect>
                         <StackPanel MinWidth="152">
                             <Button Style="{StaticResource PopupItemButton}"
-                                    Content="访问作者 Github"
+                                    Content="访问项目主页"
                                     Click="Github_Click" />
                             <TextBlock Text="{Binding AuthorHomepageLabel}"
                                        FontSize="10.5"
