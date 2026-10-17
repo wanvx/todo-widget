@@ -184,11 +184,13 @@
                             Margin="3,0,8,0" />
 
                     <!-- 一整行：任务：截止时间 剩余时间
-                         用单个 TextBlock 承载，文字才会左贴而不是被列宽撑散。 -->
+                         用单个 TextBlock 承载，文字才会左贴而不是被列宽撑散。
+                         剩余时间比截止时间深一档、粗一档（#52525B + SemiBold），
+                         一眼能先读到"还剩多久"，但仍然是灰色，不会盖过任务标题。 -->
                     <TextBlock Grid.Column="1"
                                VerticalAlignment="Center"
                                TextTrimming="CharacterEllipsis"
-                               TextDecorations="{Binding IsDone, Converter={StaticResource Strike}}"><Run Text="{Binding Title, Mode=OneWay}" FontSize="12.5" Foreground="{StaticResource TextBrush}" /><Run Text="：" FontSize="12" Foreground="{StaticResource TextFaintBrush}" /><Run Text="{Binding DueText, Mode=OneWay}" FontSize="11.5" FontFamily="{StaticResource MonoFont}" Foreground="{StaticResource TextMutedBrush}" /><Run Text="  " FontSize="11.5" /><Run Text="{Binding RemainingText, Mode=OneWay}" FontSize="11.5" Foreground="{StaticResource TextMutedBrush}" /></TextBlock>
+                               TextDecorations="{Binding IsDone, Converter={StaticResource Strike}}"><Run Text="{Binding Title, Mode=OneWay}" FontSize="12.5" Foreground="{StaticResource TextBrush}" /><Run Text="：" FontSize="12" Foreground="{StaticResource TextFaintBrush}" /><Run Text="{Binding DueText, Mode=OneWay}" FontSize="11.5" FontFamily="{StaticResource MonoFont}" Foreground="{StaticResource TextMutedBrush}" /><Run Text="  " FontSize="11.5" /><Run Text="{Binding RemainingText, Mode=OneWay}" FontSize="11.5" FontWeight="SemiBold" Foreground="{StaticResource TextSecondaryBrush}" /></TextBlock>
 
                     <!-- 悬停才出现的编辑 / 删除 -->
                     <StackPanel x:Name="actions"

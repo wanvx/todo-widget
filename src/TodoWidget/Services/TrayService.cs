@@ -65,12 +65,24 @@ public sealed class TrayService : IDisposable
             AutoStartRequested?.Invoke(this, item.Checked);
         };
 
+        // 开发构建、以及不是从安装目录运行的副本，无权改写自启动（见 AutoStartService）。
+        // 置灰并把原因放进 tooltip，免得用户以为"点了没反应"。
+        if (!AutoStartService.IsAvailable)
+        {
+            _autoStartItem.Enabled = false;
+            _autoStartItem.CheckOnClick = false;
+            _autoStartItem.ToolTipText = AutoStartService.UnavailableReason;
+        }
+
         _notifyItem = new ToolStripMenuItem("到期气泡提醒") { CheckOnClick = true };
         _notifyItem.Click += (s, _) => NotifyRequested?.Invoke(this, ((ToolStripMenuItem)s!).Checked);
 
         var settingsFile = new ToolStripMenuItem("打开数据文件夹", null, (_, _) => OpenDataFolderRequested?.Invoke(this, EventArgs.Empty));
 
         var exit = new ToolStripMenuItem("退出", null, (_, _) => ExitRequested?.Invoke(this, EventArgs.Empty));
+
+        // 托盘菜单里的条目默认不显示 tooltip，这里打开，好在「开机自启动」置灰时说明原因。
+        menu.ShowItemToolTips = true;
 
         menu.Items.AddRange(new ToolStripItem[]
         {

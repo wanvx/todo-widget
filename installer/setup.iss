@@ -6,9 +6,9 @@
 ; build-installer.ps1 会在编译前自动补 BOM，所以改完直接构建即可。
 
 #define AppName "待办清单"
-#define AppVersion "1.1.0"
+#define AppVersion "1.2.0"
 #define AppPublisher "wanvx"
-#define AppUrl "https://github.com/wanvx"
+#define AppUrl "https://github.com/wanvx/todo-widget"
 #define AppExeName "待办清单.exe"
 
 [Setup]
@@ -20,7 +20,7 @@ AppVerName={#AppName} {#AppVersion}
 AppPublisher={#AppPublisher}
 AppPublisherURL={#AppUrl}
 AppSupportURL={#AppUrl}
-VersionInfoVersion=1.1.0.0
+VersionInfoVersion=1.2.0.0
 VersionInfoCompany={#AppPublisher}
 VersionInfoDescription={#AppName} 安装程序
 VersionInfoProductName={#AppName}
@@ -73,6 +73,14 @@ Name: "desktopicon"; Description: "创建桌面快捷方式"; GroupDescription: 
 ; 而静默退回到 %APPDATA%\TodoWidget。
 Name: "{app}"; Permissions: users-modify
 
+[Registry]
+; 自启动「归属标记」。程序靠这个值判断自己是不是「安装目录里的那一份」：
+; 只有从该目录运行的实例才被允许改写 HKCU\...\Run 里的自启动项，
+; 调试构建（bin\Debug）以及随手复制的便携副本都只能读、不能改。
+; 这是为了防止开发版把正式版的开机启动顶掉（详见 AutoStartService.cs）。
+; Flags: uninsdeletekey —— 卸载时把 Software\TodoWidget 整个键一起删掉。
+Root: HKCU; Subkey: "Software\TodoWidget"; ValueType: string; ValueName: "InstallDir"; ValueData: "{app}"; Flags: uninsdeletekey
+
 [Files]
 Source: "..\dist\{#AppExeName}"; DestDir: "{app}"; Flags: ignoreversion
 
@@ -94,8 +102,19 @@ function InitializeUninstall(): Boolean;
 var
   DataFile: String;
   SettingsFile: String;
+  RunValue: String;
 begin
   Result := True;
+
+  // 自启动项是本程序写的，卸载时一并清掉，否则以后每次开机都会去启动一个
+  // 已经被删掉的 exe。只删指向本安装目录的那一条——万一用户还留着一份
+  // 便携版并给它开了自启动，不能误删别人的。
+  if RegQueryStringValue(HKCU, 'Software\Microsoft\Windows\CurrentVersion\Run',
+                         'TodoWidget', RunValue) then
+  begin
+    if Pos(Lowercase(ExpandConstant('{app}')), Lowercase(RunValue)) > 0 then
+      RegDeleteValue(HKCU, 'Software\Microsoft\Windows\CurrentVersion\Run', 'TodoWidget');
+  end;
 
   DataFile := ExpandConstant('{app}\data.json');
   SettingsFile := ExpandConstant('{app}\settings.json');

@@ -9,6 +9,9 @@
     <SolidColorBrush x:Key="BorderBrush" Color="#E8E8EA" />
     <SolidColorBrush x:Key="BorderStrongBrush" Color="#D2D2D6" />
     <SolidColorBrush x:Key="TextBrush" Color="#18181B" />
+    <!-- 比 TextMuted 深一档的灰：给"需要稍微强调、但仍然不是正文黑"的信息用，
+         比如任务行里的剩余时间。刻意保持中性灰，不抢任务标题的注意力。 -->
+    <SolidColorBrush x:Key="TextSecondaryBrush" Color="#52525B" />
     <SolidColorBrush x:Key="TextMutedBrush" Color="#71717A" />
     <SolidColorBrush x:Key="TextFaintBrush" Color="#A1A1AA" />
     <SolidColorBrush x:Key="HoverBrush" Color="#F4F4F5" />
